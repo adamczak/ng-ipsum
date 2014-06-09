@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="test/lib/bower_components/angular/angular.min.js"></script>
+        <script src="src/ipsum.js"></script>
+        <script>
+        var app = angular.module("app", ["ipsum"])
+        </script>
+    </head>
+    <body ng-app="app">
+        <h3>Random male full name</h3>
+        <div ipsum-name="mfml"></div>
+        <hr/>
+        <h3>Random female full name</h3>
+        <div ipsum-name="ffml"></div>
+        <hr/>
+        <h3>Random first names</h3>
+        Female: <span ipsum-name="ff"></span>, Male: <span ipsum-name="mf"></span>
+        <hr/>
+        <h3>Random last names</h3>
+        <span ipsum-name="fl"></span>, <span ipsum-name="ml"></span>, <span ipsum-name="rl"></span>
+        <hr/>
+        <h3>10 words</h3>
+        <div ipsum="10w"></div>
+        <hr/>
+        <h3>10 sentences</h3>
+        <div ipsum="10s"></div>
+        <hr/>
+        <h3>10 paragraphs</h3>
+        <div ipsum="10p"></div>
+        <hr/>
+        <h3>3 words, 2 sentences and 1 paragraph</h3>
+        <div ipsum="3w2s1p"></div>
+    </body>
+</html>
