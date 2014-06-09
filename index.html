@@ -1,35 +1,165 @@
 <!doctype html>
 <html>
-    <head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="demo/bsdocs.css"/>
+    <link type="text/css" rel="stylesheet" href="demo/fork.css"/>
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="demo/gh-fork-ribbon.ie.css">
+        <![endif]-->
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
         <script src="src/ipsum.js"></script>
         <script>
-        var app = angular.module("app", ["ipsum"])
+            var app = angular.module("app", ["ipsum"])
         </script>
+        <style>
+            /* The default background color is #c00 */
+            .right-bottom .github-fork-ribbon {
+                background-color: #090;
+            }
+
+            .right .github-fork-ribbon {
+                background-color: #f80;
+            }
+
+            .left-bottom .github-fork-ribbon {
+                background-color: #333;
+            }
+        </style>
     </head>
     <body ng-app="app">
-        <h3>Random male full name</h3>
-        <div ipsum-name="mfml"></div>
-        <hr/>
-        <h3>Random female full name</h3>
-        <div ipsum-name="ffml"></div>
-        <hr/>
-        <h3>Random first names</h3>
-        Female: <span ipsum-name="ff"></span>, Male: <span ipsum-name="mf"></span>
-        <hr/>
-        <h3>Random last names</h3>
-        <span ipsum-name="fl"></span>, <span ipsum-name="ml"></span>, <span ipsum-name="rl"></span>
-        <hr/>
-        <h3>10 words</h3>
-        <div ipsum="10w"></div>
-        <hr/>
-        <h3>10 sentences</h3>
-        <div ipsum="10s"></div>
-        <hr/>
-        <h3>10 paragraphs</h3>
-        <div ipsum="10p"></div>
-        <hr/>
-        <h3>3 words, 2 sentences and 1 paragraph</h3>
-        <div ipsum="3w2s1p"></div>
-    </body>
+        <div class="github-fork-ribbon-wrapper right">
+            <div class="github-fork-ribbon">
+                <a href="https://github.com/adamczak/ng-ipsum">Fork me on GitHub</a>
+            </div>
+        </div>
+        <div class="container">
+          <div class="header">
+              <h3 class="text-muted">ng-ipsum</h3>
+          </div>
+
+          <div class="jumbotron">
+            <h1>AngularJS randomness</h1>
+            <div class="lead" ipsum="2s"></div>
+        </div>
+
+        <div class="row marketing">
+            <div class="col-lg-12">
+
+                <div class="bs-docs-section">
+                  <h1 id="words" class="page-header">Words</h1>
+                  <p class="lead">Ipsum-y text</a>.</p>
+
+                  <h3 id="words-example">As a directive</h3>
+                  <p>Add the <code>ipsum</code> attribute to an element.</p>
+                  <div class="bs-example">
+                    <div class="dropdown clearfix">
+                      <div ipsum="10w"></div>
+                      <br/>
+                      <div ipsum="2s"></div>
+                      <br/>
+                      <div ipsum="1p"></div>
+                  </div>
+              </div><!-- /example -->
+              <div class="highlight"><pre><code class="html">&lt;div ipsum="10w"&gt;&lt;/div&gt;
+                &lt;div ipsum="2s"&gt;&lt;/div&gt;
+                &lt;div ipsum="1p"&gt;&lt;/div&gt;
+            </code></pre></div>
+            <h3>Options</h3>
+            <p>
+                The value of the ipsum attribute defines the output.  Format is <code>\d+w|s|p</code>.  Options can be chained, i.e.: <code>&lt;span ipsum='2w1p3s'/&gt;</code> for 2 words, 1 paragraph and 3 sentences.
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Value</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10w</td>
+                        <td>10 words, no punctuation</td>
+                    </tr>
+                    <tr>
+                        <td>2s</td>
+                        <td>2 sentences.  First letter of each capatalized, period at end.</td>
+                    </tr>
+                    <tr>
+                        <td>1p</td>
+                        <td>
+                            1 paragraph.  Will be wrapped in <code>&lt;p&gt;&lt;/p&gt;</code> tags
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h1 id="names" class="page-header">Names</h1>
+            <p class="lead">Ipsum-y names</a>.</p>
+            <h3 id="names-example">As a directive</h3>
+
+            <p>Add the <code>ipsum-name</code> attribute to an element.</p>
+            <div class="bs-example">
+                <div class="dropdown clearfix">
+                  <div ipsum-name="mfml"></div>
+                  <br/>
+                  <div ipsum-name="ffml"></div>
+                  <br/>
+                  <div ipsum-name="rf"></div>
+              </div>
+          </div><!-- /example -->
+          <div class="highlight"><pre><code class="html">&lt;div ipsum-name="mfml"&gt;&lt;/div&gt;
+            &lt;div ipsum-name="flmf"&gt;&lt;/div&gt;
+            &lt;div ipsum-name="rf"&gt;&lt;/div&gt;
+        </code></pre></div>
+        <h3>Options</h3>
+        <p>
+            The value of the ipsum-name attribute defines the output.  Format is sex + format: <code>[fmr][fml]+</code>. 
+        </p>
+        <table class="table">
+            <thead>
+                <th>
+                    <tr>
+                        <th>Option</th>
+                        <th>Values</th>
+                    </tr>
+                </th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sex</td>
+                    <td>
+                        m = male<br/>
+                        f = female<br/>
+                        r = randomly pick m or f    
+                    </td>
+                </tr>
+                <tr>
+                    <td>Format</td>
+                    <td>
+                        f = first<br/>
+                        m = middle initial<br/>
+                        l = last<br/>
+                        <i>
+                            One or more is required, and only 1 of each can be specified.<br/>  Output will be in order provided, i.e.: <code>
+                            &lt;span ipsum-name='fmlf' /&gt;</code> will output a female name in the format MI Last First
+                        </i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+
+<div class="footer">
+ 
+</div>
+
+</div>
+
+</body>
 </html>
