@@ -1,6 +1,6 @@
 {
   "name": "angular-ipsum",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/adamczak/ng-ipsum",
   "authors": [
     "Brian <adamczak@gmail.com>"
@@ -20,6 +20,11 @@
     "test",
     "tests",
     "src",
-    "demo"
+    "demo",
+    "gruntfile.js",
+    "index.html",
+    "package.json",
+    "README.md",
+    "bower.json"
   ]
 }
