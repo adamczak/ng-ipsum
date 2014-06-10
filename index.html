@@ -277,7 +277,7 @@
                             <div class="row">
                                 
                                 <div class="col-md-6">
-<pre class="prettyprint">
+<pre class="prettyprint" ng-non-bindable>
 app.controller('peopleController', function($scope, ipsumService) { 
     $scope.person = ipsumService.randomName('r');
     $scope.people = [];
@@ -289,7 +289,7 @@ app.controller('peopleController', function($scope, ipsumService) {
         $scope.people.push(person);
     }
 });</pre>
-<pre class="prettyprint">
+<pre class="prettyprint" ng-non-bindable>
 &lt;table class="table table-bordered table-striped table-condensed"&gt;
     &lt;thead&gt;
         &lt;tr&gt;
@@ -306,6 +306,9 @@ app.controller('peopleController', function($scope, ipsumService) {
         &lt;/tr&gt;    
     &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;div ng-repeat="person in people|random"&gt;
+    A random person from the list above: {{person.first}} {{person.last}}
+&lt;/div&gt;
 </pre>
 
                             </div>
@@ -329,7 +332,9 @@ app.controller('peopleController', function($scope, ipsumService) {
                                         </tr>    
                                     </tbody>
                                 </table>
-
+                                <div ng-repeat="person in people|random">
+                                    A random person from the list above: {{person.first}} {{person.last}}
+                                </div>
                             </div>
                         </div>
                         

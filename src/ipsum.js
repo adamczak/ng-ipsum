@@ -219,7 +219,9 @@ angular.module("ipsum", [])
 
 .filter("random", function(ipsumService) {
     return function(value) {
-        return ipsumService.randomItem(value);
+        var filtered = []
+        filtered.push(ipsumService.randomItem(value));
+        return filtered;
     }
 })
 
