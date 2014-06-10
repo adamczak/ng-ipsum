@@ -1,0 +1,25 @@
+{
+  "name": "angular-ipsum",
+  "version": "0.0.1",
+  "homepage": "https://github.com/adamczak/ng-ipsum",
+  "authors": [
+    "Brian <adamczak@gmail.com>"
+  ],
+  "description": "Lorem ipsum text, people names and other randomness for AngularJS applications",
+  "main": "dist/ipsum.min.js",
+  "keywords": [
+    "ipsum",
+    "angular",
+    "random"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "src",
+    "demo"
+  ]
+}
