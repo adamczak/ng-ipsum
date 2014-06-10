@@ -184,3 +184,21 @@ describe("ipsum directive", function() {
         expect(elem.html().match(/<\/p>/g).length).toBe(10);
     });
 });
+
+describe("random filter", function() {
+    var filter;
+    beforeEach(function() {
+        module("ipsum");
+        inject(function(randomFilter) {
+            filter = randomFilter;
+        });
+    });
+
+    it("exists", function() {
+        expect(filter).not.toBeNull();
+    });
+
+    it("should return an item", function() {
+        expect(filter(['a'])).toBe('a');
+    });
+});

@@ -217,6 +217,12 @@ angular.module("ipsum", [])
     
 })
 
+.filter("random", function(ipsumService) {
+    return function(value) {
+        return ipsumService.randomItem(value);
+    }
+})
+
 if (!String.prototype.trim) {
   String.prototype.trim = function () {
     return this.replace(/^\s+|\s+$/g, '');
