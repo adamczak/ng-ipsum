@@ -7,13 +7,26 @@
     <link type="text/css" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
     <link type="text/css" rel="stylesheet" href="demo/bsdocs.css"/>
     <link type="text/css" rel="stylesheet" href="demo/fork.css"/>
-    <!--[if lt IE 9]>
+        <!--[if lt IE 9]>
         <link rel="stylesheet" href="demo/gh-fork-ribbon.ie.css">
         <![endif]-->
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
         <script src="dist/ipsum.min.js"></script>
+        <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
         <script>
-            var app = angular.module("app", ["ipsum"])
+            var app = angular.module("app", ["ipsum"]);
+            app.controller("peopleController", function($scope, ipsumService) {
+                $scope.person = ipsumService.randomName('r');
+
+                $scope.people = [];
+
+                for(var i = 0; i < 10; i++)
+                {
+                    var person = ipsumService.randomName('r');
+                    person.email = person.first + '.' + person.last + '@' + ipsumService.words(1) + ipsumService.randomItem(['.net','.org','.com','.biz'])
+                    $scope.people.push(person);
+                }
+            })
         </script>
         <style>
             /* The default background color is #c00 */
@@ -39,142 +52,301 @@
         <div class="container">
 
             <div class="header">
-                <h3 class="text-muted">ng-ipsum</h3>
+                <h3 class="text-muted">angular-ipsum</h3>
             </div>
 
             <div class="jumbotron">
                 <h1>AngularJS randomness</h1>
-                <div class="lead" ipsum="2s"></div>
-                <div>(like above)</div>
+                <blockquote>
+  <p ipsum="2s"></p>
+  <footer><cite ipsum-name="rfl"></cite></footer>
+</blockquote>
+                
             </div>
 
-        <div class="row marketing">
-            <div class="col-lg-12">
+            <div class="row marketing">
+                <div class="col-md-12">
 
-                <h1>Getting started</h1>
+                    <h1>Getting started</h1>
 
-                <code>bower install angular-ipsum</code>
+                    <p>
+                        <code>bower install angular-ipsum</code>
+                        or download from <a href="https://github.com/adamczak/ng-ipsum">here</a>.
+                    </p>
+                    <p>Then include it in the list of dependencies for your application:</p>
 
-                or download from <a href="https://github.com/adamczak/ng-ipsum">here</a>.
+                    <code>var app = angular.module("app", ["ipsum"]);</code>
 
-                <div class="bs-docs-section">
-                    <h1 id="words" class="page-header">Words</h1>
-                    <p class="lead">Ipsum-y text.</p>
+                    <div class="bs-docs-section">
+                        <h1 id="words" class="page-header">Words</h1>
+                        <p class="lead">Ipsum-y text.</p>
 
-                    <h3 id="words-example">As a directive</h3>
-                    <p>Add the <code>ipsum</code> attribute to an element.</p>
-                    <div class="bs-example">
-                        <div class="dropdown clearfix">
-                            <div ipsum="10w"></div>
-                            <br/>
-                            <div ipsum="2s"></div>
-                            <br/>
-                            <div ipsum="1p"></div>
-                        </div>
-                    </div><!-- /example -->
-                    <div class="highlight"><pre><code class="html">&lt;div ipsum="10w"&gt;&lt;/div&gt;
+                        <h3 id="words-example">As a directive</h3>
+                        <p>Add the <code>ipsum</code> attribute to an element.</p>
+                        <div class="bs-example">
+                            <div class="dropdown clearfix">
+                                <div ipsum="10w"></div>
+                                <br/>
+                                <div ipsum="2s"></div>
+                                <br/>
+                                <div ipsum="1p"></div>
+                            </div>
+                        </div><!-- /example -->
+<div class="highlight"><pre><code class="html">&lt;div ipsum="10w"&gt;&lt;/div&gt;
 &lt;div ipsum="2s"&gt;&lt;/div&gt;
 &lt;div ipsum="1p"&gt;&lt;/div&gt;
 </code></pre></div>
-            
-            <h3>Options</h3>
-            <p>
-                The value of the ipsum attribute defines the output.  Format is number of items + type: <code>\d+w|s|p</code>.  Options can be chained, i.e.: <code>&lt;span ipsum='2w1p3s'/&gt;</code> for 2 words, 1 paragraph and 3 sentences.
-            </p>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Value</th>
-                        <th>Meaning</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>10w</td>
-                        <td>10 words, no punctuation</td>
-                    </tr>
-                    <tr>
-                        <td>2s</td>
-                        <td>2 sentences.  First letter of each capatalized, period at end.</td>
-                    </tr>
-                    <tr>
-                        <td>1p</td>
-                        <td>
-                            1 paragraph.  Will be wrapped in <code>&lt;p&gt;&lt;/p&gt;</code> tags
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h1 id="names" class="page-header">Names</h1>
-            <p class="lead">Ipsum-y names.</p>
-            <h3 id="names-example">As a directive</h3>
+                        
+                        <h3>Options</h3>
+                        <p>
+                            The value of the ipsum attribute defines the output.  Format is number of items + type: <code>\d+w|s|p</code>.  Options can be chained, i.e.: <code>&lt;span ipsum='2w1p3s'/&gt;</code> for 2 words, 1 paragraph and 3 sentences.
+                        </p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Value</th>
+                                    <th>Meaning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>10w</td>
+                                    <td>10 words, no punctuation</td>
+                                </tr>
+                                <tr>
+                                    <td>2s</td>
+                                    <td>2 sentences.  First letter of each capatalized, period at end.</td>
+                                </tr>
+                                <tr>
+                                    <td>1p</td>
+                                    <td>
+                                        1 paragraph.  Will be wrapped in <code>&lt;p&gt;&lt;/p&gt;</code> tags
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h1 id="names" class="page-header">Names</h1>
+                        <p class="lead">Ipsum-y names.</p>
+                        <h3 id="names-example">As a directive</h3>
 
-            <p>Add the <code>ipsum-name</code> attribute to an element.</p>
-            <div class="bs-example">
-                <div class="dropdown clearfix">
-                    <div ipsum-name="mfml"></div>
-                    <br/>
-                    <div ipsum-name="ffml"></div>
-                    <br/>
-                    <div ipsum-name="rf"></div>
-                </div>
-            </div><!-- /example -->
+                        <p>Add the <code>ipsum-name</code> attribute to an element.</p>
+                        <div class="bs-example">
+                            <div class="dropdown clearfix">
+                                <div ipsum-name="mfml"></div>
+                                <br/>
+                                <div ipsum-name="ffml"></div>
+                                <br/>
+                                <div ipsum-name="rf"></div>
+                            </div>
+                        </div><!-- /example -->
 <div class="highlight"><pre><code class="html">&lt;div ipsum-name="mfml"&gt;&lt;/div&gt;
 &lt;div ipsum-name="flmf"&gt;&lt;/div&gt;
 &lt;div ipsum-name="rf"&gt;&lt;/div&gt;
 </code></pre></div>
-            <h3>Options</h3>
-            <p>
-                The value of the ipsum-name attribute defines the output.  Format is sex + format: <code>[fmr][fml]+</code>. 
-            </p>
-            <table class="table">
-                <thead>
-                    <th>
-                        <tr>
-                            <th>Option</th>
-                            <th>Values</th>
-                        </tr>
-                    </th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Sex</td>
-                        <td>
-                            m = male<br/>
-                            f = female<br/>
-                            r = randomly pick m or f    
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Format</td>
-                        <td>
-                            f = first<br/>
-                            m = middle initial<br/>
-                            l = last<br/>
-                            <i>
-                                One or more is required, and only 1 of each can be specified.<br/>  Output will be in order provided, i.e.: <code>
-                                &lt;span ipsum-name='fmlf' /&gt;</code> will output a female name in the format MI Last First
-                            </i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-    </div>
-</div>
+                        <h3>Options</h3>
+                        <p>
+                            The value of the ipsum-name attribute defines the output.  Format is sex + format: <code>[fmr][fml]+</code>. 
+                        </p>
+                        <table class="table">
+                            <thead>
+                                <th>
+                                    <tr>
+                                        <th>Option</th>
+                                        <th>Values</th>
+                                    </tr>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Sex</td>
+                                    <td>
+                                        m = male<br/>
+                                        f = female<br/>
+                                        r = randomly pick m or f    
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Format</td>
+                                    <td>
+                                        f = first<br/>
+                                        m = middle initial<br/>
+                                        l = last<br/>
+                                        <i>
+                                            One or more is required, and only 1 of each can be specified.<br/>  Output will be in order provided, i.e.: <code>
+                                            &lt;span ipsum-name='fmlf' /&gt;</code> will output a female name in the format MI Last First
+                                        </i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h1 id="service-example">As a service</h1>
 
-<div class="footer">
+                        <p>Inject the <code>ipsumService</code> into your controller/service/directive
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Operation</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    ipsumService.paragraphs(count)
+                                </td>
+                                <td>
+                                    Get a random string of sentences in paragraph format (wrapped in &lt;p&gt; tags)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ipsumService.sentences(count)
+                                </td>
+                                <td>
+                                    Get a random string of words in sentence format
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ipsumService.words(count)
+                                </td>
+                                <td>
+                                    Get a random string of words
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ipsumService.randomFemale()
+                                </td>
+                                <td>
+                                    Get a random female first name
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ipsumService.randomMale()
+                                </td>
+                                <td>
+                                    Get a random male first name
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ipsumService.randomFirst()
+                                </td>
+                                <td>
+                                    Get a random first name
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ipsumService.randomLast()
+                                </td>
+                                <td>
+                                    Get a random last name
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ipsumService.randomMi()
+                                </td>
+                                <td>
+                                    Get a random middle initial (a letter)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ipsumService.randomName()
+                                </td>
+                                <td>
+                                    Get a random 'person' object - {first: '', mi: '', last: '', full: ''}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ipsumService.randomItem()
+                                </td>
+                                <td>
+                                    Get a item from a provided list
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <h3>Example</h3>
+                            <div class="row">
+                                
+                                <div class="col-md-6">
+<pre class="prettyprint">
+app.controller('peopleController', function($scope, ipsumService) { 
+    $scope.person = ipsumService.randomName('r');
+    $scope.people = [];
 
-</div>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    for(var i = 0; i < 10; i++)
+    {
+        var person = ipsumService.randomName('r');
+        person.email = person.first + '.' + person.last + '@' + ipsumService.words(1) + ipsumService.randomItem(['.net','.org','.com','.biz'])
+        $scope.people.push(person);
+    }
+});</pre>
+<pre class="prettyprint">
+&lt;table class="table table-bordered table-striped table-condensed"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;First&lt;/th&gt;
+            &lt;th&gt;M.I.&lt;/th&gt;
+            &lt;th&gt;Last&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr ng-repeat="person in people"&gt;
+            &lt;td&gt;{{person.first}}&lt;/td&gt;
+            &lt;td&gt;{{person.mi}}&lt;/td&gt;
+            &lt;td&gt;{{person.last}}&lt;/td&gt;
+        &lt;/tr&gt;    
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
 
-  ga('create', 'UA-248590-10', 'ng-ipsum.azurewebsites.net');
-  ga('send', 'pageview');
+                            </div>
+                            <div class="col-md-6" ng-controller="peopleController">
+                                
+                                <table class="table table-bordered table-striped table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>First</th>
+                                            <th>M.I.</th>
+                                            <th>Last</th>
+                                            <th>Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="person in people">
+                                            <td>{{person.first}}</td>
+                                            <td>{{person.mi}}</td>
+                                            <td>{{person.last}}</td>
+                                            <td>{{person.email}}</td>
+                                        </tr>    
+                                    </tbody>
+                                </table>
 
-</script>
-</body>
-</html>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+                <script>
+                  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                  ga('create', 'UA-248590-10', 'ng-ipsum.azurewebsites.net');
+                  ga('send', 'pageview');
+
+              </script>
+
+          </body>
+          </html>

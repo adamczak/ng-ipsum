@@ -178,9 +178,9 @@ angular.module("ipsum", [])
     }
 
     /**
-    * Get a random full name in the format First Mi Last
+    * Get a random 'person' object - {first: '', mi: '', last: '', full: ''}
     * @param {string} [sex] m = male, f = female, r = random
-    * @returns {string}
+    * @returns {object}
     */
     self.randomName = function(sex) {
     	sex = sex || 'r';
