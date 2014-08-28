@@ -23,6 +23,12 @@ describe("ipsum service", function() {
         expect(actual.length > 1).toBe(true);
     });
 
+    it("should return a random number of paragraphs", function () {
+		var actual = service.paragraphs('1-3').split("</p>");
+		expect(actual.length).toBeGreaterThan(0);
+		expect(actual.length-1).toBeLessThan(4);
+    });
+
     it("should capitalize the first letter of sentences", function() {
         var sentence = service.sentences(1);
         expect(sentence.substring(0,1).toUpperCase()).toBe(sentence.substring(0,1));
@@ -178,6 +184,14 @@ describe("ipsum directive", function() {
         expect(elem.html().match(/<\/p>/g).length).toBe(5);
     });
 
+    it("should random N-N paragraphs for N-Np", function() {
+        compileAndDigest("<div ipsum='1-3p'></div>");
+        var len = elem.html().match(/<\/p>/g).length;
+        //console.log(len);
+        expect(len).toBeGreaterThan(0);
+        expect(len).toBeLessThan(4);
+    });
+
     it("should combine options", function() {
         compileAndDigest("<div ipsum='5w10p'></div>");
         expect(elem.text().split(" ").length > 5).toBeTruthy();
@@ -199,6 +213,6 @@ describe("random filter", function() {
     });
 
     it("should return an item", function() {
-        expect(filter(['a'])).toBe('a');
+        expect(filter(['a'])[0]).toBe('a');
     });
 });

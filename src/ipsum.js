@@ -4,11 +4,11 @@ angular.module("ipsum", [])
     return {
         restrict: "AE",
         link: function(scope,elem,attrs) {
-        	var opts = attrs["ipsum"].match(/\d+\w/g);
+        	var opts = attrs["ipsum"].match(/\d+(-*\d+)*\w/g);
         	var str = '';
         	for(var i = 0, l = opts.length; i < l; i++)
         	{
-        		var num = opts[i].match(/\d+/)[0];
+        		var num = opts[i].match(/(\d+(-*\d+)*)/)[1];
         		var type = opts[i].match(/w|s|p/)[0];
 
         		switch(type) {
@@ -19,6 +19,7 @@ angular.module("ipsum", [])
 	        			str += ipsumService.sentences(num) + ' ';
 	        			break;
         			case "p":
+                        //console.log(num);
         				str += ipsumService.paragraphs(num);
 	        			break;
         		}
@@ -79,7 +80,11 @@ angular.module("ipsum", [])
     var self = this;
 
     var rand = function (min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+        max = parseInt(max);
+        min = parseInt(min);
+        var r = Math.floor(Math.random() * (max - min + 1) + min); 
+        //console.log(r,max);
+        return r > max ? max : r;
     };
 
     self.maleFirstNames = ['James','John','Robert','Michael','William','David','Richard','Charles','Joseph','Thomas','Christopher','Daniel','Paul','Mark','Donald','George','Kenneth','Steven','Edward','Brian','Ronald','Anthony','Kevin','Jason','Matthew','Gary','Timothy','Jose','Larry','Jeffrey','Frank','Scott','Eric','Stephen','Andrew','Raymond','Gregory','Joshua','Jerry','Dennis','Walter','Patrick','Peter','Harold','Douglas','Henry','Carl','Arthur','Ryan','Roger','Joe','Juan','Jack','Albert','Jonathan','Justin','Terry','Gerald','Keith','Samuel','Willie','Ralph','Lawrence','Nicholas','Roy','Benjamin','Bruce','Brandon','Adam','Harry','Fred','Wayne','Billy','Steve','Louis','Jeremy','Aaron','Randy','Howard','Eugene','Carlos','Russell','Bobby','Victor','Martin','Ernest','Phillip','Todd','Jesse','Craig','Alan','Shawn','Clarence','Sean','Philip','Chris','Johnny','Earl','Jimmy','Antonio','Danny','Bryan','Tony','Luis','Mike','Stanley','Leonard','Nathan','Dale','Manuel','Rodney','Curtis','Norman','Allen','Marvin','Vincent','Glenn','Jeffery','Travis','Jeff','Chad','Jacob','Lee','Melvin','Alfred','Kyle','Francis','Bradley','Jesus','Herbert','Frederick','Ray','Joel','Edwin','Don','Eddie','Ricky','Troy','Randall','Barry','Alexander','Bernard','Mario','Leroy','Francisco','Marcus','Micheal','Theodore','Clifford','Miguel','Oscar','Jay','Jim','Tom','Calvin','Alex','Jon','Ronnie','Bill','Lloyd','Tommy','Leon','Derek','Warren','Darrell','Jerome','Floyd','Leo','Alvin','Tim','Wesley','Gordon','Dean','Greg','Jorge','Dustin','Pedro','Derrick','Dan','Lewis','Zachary','Corey','Herman','Maurice','Vernon','Roberto','Clyde','Glen','Hector','Shane','Ricardo','Sam','Rick','Lester','Brent','Ramon','Charlie','Tyler','Gilbert','Gene','Marc','Reginald','Ruben','Brett','Angel','Nathaniel','Rafael','Leslie','Edgar','Milton','Raul','Ben','Chester','Cecil','Duane','Franklin','Andre'];
@@ -90,12 +95,20 @@ angular.module("ipsum", [])
 
     self.firstNames = self.maleFirstNames.concat(self.femaleFirstNames);
 
+    var getRandom = function (str) {
+        if((str+'').indexOf('-') > -1) {
+            return rand(str.split('-')[0],str.split('-')[1]);
+        }
+        return str;
+    }
+
     /**
     * Get a random string of sentences in paragraph format (wrapped in <p> tags)
     * @param {int} count Number of paragraphs
     * @returns {string}
     */
     self.paragraphs = function(count) {
+        count = getRandom(count);
         var paragraphs = new Array;
         for (var i = 0; i < count; i++) {
             var paragraphLength = rand(10, 20);
