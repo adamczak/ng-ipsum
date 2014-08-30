@@ -16,17 +16,20 @@
         <script>
             var app = angular.module("app", ["ipsum"]);
             app.controller("peopleController", function($scope, ipsumService) {
+                
                 $scope.person = ipsumService.randomName('r');
 
-                $scope.people = [];
-
-                for(var i = 0; i < 10; i++)
-                {
-                    var person = ipsumService.randomName('r');
-                    person.email = person.first + '.' + person.last + '@' + ipsumService.words(1) + ipsumService.randomItem(['.net','.org','.com','.biz'])
-                    $scope.people.push(person);
-                }
-            })
+                (function() {
+                    var people = [];
+                    for(var i = 0; i < 10; i++)
+                    {
+                        var person = ipsumService.randomName('r');
+                        person.email = person.first + '.' + person.last + '@' + ipsumService.words(1) + ipsumService.randomItem(['.net','.org','.com','.biz'])
+                        people.push(person);
+                    }
+                    $scope.people = people;    
+                })();
+            });
         </script>
         <style>
             /* The default background color is #c00 */
@@ -91,18 +94,18 @@
                                 <br/>
                                 <div ipsum="1p"></div>
                                 <hr/>
-                                <div ipsum="2-5p"></div>
+                                <div ipsum="1-4p"></div>
                             </div>
                         </div><!-- /example -->
 <div class="highlight"><pre><code class="html">&lt;div ipsum="10w"&gt;&lt;/div&gt;
 &lt;div ipsum="2s"&gt;&lt;/div&gt;
 &lt;div ipsum="1p"&gt;&lt;/div&gt;
-&lt;div ipsum="2-5p"&gt;&lt;/div&gt;
+&lt;div ipsum="1-4p"&gt;&lt;/div&gt;
 </code></pre></div>
                         
                         <h3>Options</h3>
                         <p>
-                            The value of the ipsum attribute defines the output.  Format is number of items + type: <code>\d+w|s|p</code>.  Options can be chained, i.e.: <code>&lt;span ipsum='2w1p3s'/&gt;</code> for 2 words, 1 paragraph and 3 sentences.
+                            The value of the ipsum attribute defines the output.  Format is number of items + type: <code>\d+(-*\d+)*w|s|p</code>.  Options can be chained, i.e.: <code>&lt;span ipsum='2w1p3s'/&gt;</code> for 2 words, 1 paragraph and 3 sentences.
                         </p>
                         <table class="table">
                             <thead>
@@ -121,9 +124,9 @@
                                     <td>2 sentences.  First letter of each capatalized, period at end.</td>
                                 </tr>
                                 <tr>
-                                    <td>1p</td>
+                                    <td>1-4p</td>
                                     <td>
-                                        1 paragraph.  Will be wrapped in <code>&lt;p&gt;&lt;/p&gt;</code> tags
+                                        1-4 paragraphs.  Will be wrapped in <code>&lt;p&gt;&lt;/p&gt;</code> tags
                                     </td>
                                 </tr>
                             </tbody>
@@ -335,7 +338,7 @@ app.controller('peopleController', function($scope, ipsumService) {
                                         </tr>    
                                     </tbody>
                                 </table>
-                                <div ng-repeat="person in people|random">
+                                <div ng-if="people && people.length" ng-repeat="person in people|random">
                                     A random person from the list above: {{person.first}} {{person.last}}
                                 </div>
                             </div>

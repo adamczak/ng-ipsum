@@ -83,7 +83,6 @@ angular.module("ipsum", [])
         max = parseInt(max);
         min = parseInt(min);
         var r = Math.floor(Math.random() * (max - min + 1) + min); 
-        //console.log(r,max);
         return r > max ? max : r;
     };
 
@@ -232,9 +231,8 @@ angular.module("ipsum", [])
 
 .filter("random", function(ipsumService) {
     return function(value) {
-        var filtered = []
-        filtered.push(ipsumService.randomItem(value));
-        return filtered;
+        var list = value;
+        return [ipsumService.randomItem(list)];
     }
 })
 

@@ -215,3 +215,4 @@ pip-log.txt
 
 bower_components/
 node_modules/
+.node-version
